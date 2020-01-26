@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var playerScore = 0;
+      var computerScore = 0;
+      let getRandomNumber = max =>
+        Math.floor(Math.random() * Math.floor(max)) + 1;
+
+      let computerPlay = () => {
+        var x = getRandomNumber(3);
+        switch (x) {
+          case 1:
+            console.log("Computer Chose Rock!");
+            return "Rock";
+          case 2:
+            console.log("Computer Chose Paper!");
+            return "Paper";
+          case 3:
+            console.log("Computer Chose Scissors!");
+            return "Scissors";
+        }
+      };
+      let playRound = (playerSelection, computerSelection) => {
+        switch (playerSelection) {
+          case "r":
+            if (computerSelection == "r") {
+              return "Draw! Rock v Rock!";
+            } else if (computerSelection == "p") {
+              computerScore++;
+              return "You Lose! Paper Beats Rock!";
+            } else {
+              playerScore++;
+              return "You Win! Rock Beats Scissors!";
+            }
+          case "p":
+            if (computerSelection == "r") {
+              playerScore++;
+              return "You Win! Paper Beats Rock!";
+            } else if (computerSelection == "p") {
+              return "Draw! Paper v Paper!";
+            } else {
+              computerScore++;
+              return "You Lose! Scissors Beats Paper!";
+            }
+          case "s":
+            if (computerSelection == "r") {
+              computerScore++;
+              return "You Lose! Rock Beats Scissors!";
+            } else if (computerSelection == "p") {
+              playerScore++;
+              return "You Win! Scissors Beats Paper!";
+            } else {
+              return "Draw! Scissors v Scissors";
+            }
+        }
+      };
+
+      let game = () => {
+        for (i = 1; i < 6; i++) {
+          console.log("Round " + i);
+          var playerSelection = prompt("Rock, Paper or Scissors? ");
+          console.log("Player Chose " + playerSelection);
+          var computerSelection = computerPlay();
+
+          console.log(
+            playRound(
+              playerSelection.charAt(0).toLowerCase(),
+              computerSelection.charAt(0).toLowerCase()
+            )
+          );
+          console.log();
+          console.log(
+            "Score: Player ->  " + playerScore + " Computer -> " + computerScore
+          );
+          console.log();
+        }
+        if (playerScore > computerScore) {
+          console.log("Player won the battle!");
+        } else if (computerScore > playerScore) {
+          console.log("Computer won the battle!");
+        } else {
+          console.log("DRAW!!!!!");
+        }
+      };
+
+      game();
+      
+    </script>
+  </body>
+</html>

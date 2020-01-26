@@ -1,0 +1,1 @@
+This project is a practice run for my javascript skills. Mainly using funtions.
