@@ -90,3 +90,25 @@ h3,h2{
     background-color: aliceblue;
     width: 155px;
 }
+.choices-text{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+.computer-choice,.player-choice{
+    transition: ease-in-out 300ms;
+}
+.choices-text .computer-choice{
+    grid-column-start: 3;
+}
+.choices-text .winner{
+    font-size: 2em;
+    color: rgb(181, 255, 181);
+    font-weight: bold;
+}
+.choices-text .loser{
+    font-size: 0.8em;
+    color: rgb(255, 109, 109);
+    font-weight: bold;
+}

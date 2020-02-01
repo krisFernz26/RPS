@@ -13,19 +13,22 @@ const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
 const endBtn = document.querySelector(".end-game-btn");
 
+const playerChoiceText = document.querySelector(".player-choice");
+const computerChoiceText = document.querySelector(".computer-choice");
+
 let getRandomNumber = max => Math.floor(Math.random() * Math.floor(max)) + 1;
 
 let computerPlay = () => {
   var x = getRandomNumber(3);
   switch (x) {
     case 1:
-      console.log("Computer Chose Rock!");
+      computerChoiceText.textContent = "Rock";
       return "Rock";
     case 2:
-      console.log("Computer Chose Paper!");
+      computerChoiceText.textContent = "Paper";
       return "Paper";
     case 3:
-      console.log("Computer Chose Scissors!");
+      computerChoiceText.textContent = "Scissors";
       return "Scissors";
   }
 };
@@ -36,27 +39,33 @@ let playRound = (playerSelection, computerSelection) => {
         return "Draw! Rock v Rock!";
       } else if (computerSelection == "p") {
         computerScore++;
+        computerWon();
         return "You Lose! Paper Beats Rock!";
       } else {
         playerScore++;
+        playerWon();
         return "You Win! Rock Beats Scissors!";
       }
     case "p":
       if (computerSelection == "r") {
         playerScore++;
+        playerWon();
         return "You Win! Paper Beats Rock!";
       } else if (computerSelection == "p") {
         return "Draw! Paper v Paper!";
       } else {
         computerScore++;
+        computerWon();
         return "You Lose! Scissors Beats Paper!";
       }
     case "s":
       if (computerSelection == "r") {
         computerScore++;
+        computerWon();
         return "You Lose! Rock Beats Scissors!";
       } else if (computerSelection == "p") {
         playerScore++;
+        playerWon();
         return "You Win! Scissors Beats Paper!";
       } else {
         return "Draw! Scissors v Scissors";
@@ -64,7 +73,20 @@ let playRound = (playerSelection, computerSelection) => {
   }
 };
 
+function playerWon() {
+  playerChoiceText.classList.add("winner");
+  computerChoiceText.classList.add("loser");
+}
+function computerWon() {
+  computerChoiceText.classList.add("winner");
+  playerChoiceText.classList.add("loser");
+}
+
 let game = () => {
+  computerChoiceText.classList.remove("winner");
+  playerChoiceText.classList.remove("winner");
+  computerChoiceText.classList.remove("loser");
+  playerChoiceText.classList.remove("loser");
   roundNumberSpan.textContent = i;
   computerSelection = computerPlay();
 
@@ -80,14 +102,17 @@ let game = () => {
 };
 
 rock.addEventListener("click", () => {
+  playerChoiceText.textContent = "Rock";
   playerSelection = "rock";
   game();
 });
 paper.addEventListener("click", () => {
+  playerChoiceText.textContent = "Paper";
   playerSelection = "paper";
   game();
 });
 scissors.addEventListener("click", () => {
+  playerChoiceText.textContent = "Scissors";
   playerSelection = "scissors";
   game();
 });
@@ -100,8 +125,8 @@ endBtn.addEventListener("click", () => {
   } else {
     roundsDiv.textContent = "DRAW!";
   }
-    endBtn.textContent = "Play Again";
-    endBtn.addEventListener('click', () => {
-        location.reload();
-    })
+  endBtn.textContent = "Play Again";
+  endBtn.addEventListener("click", () => {
+    location.reload();
+  });
 });
